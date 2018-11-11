@@ -7,7 +7,7 @@ $pass= "";
 $mysqli = new mysqli($hostname, $userbd, $pass, $database);
 
 if ($mysqli->connect_errno) {
-    $error_connect = "Falló la conexión la Base de Datos";
+    $error_connect = "Falló la conexión la BD";
 } else {
     $error_connect = false;
 }

@@ -1,6 +1,6 @@
 <?php
 $hostname= "localhost";
-$database= "bdmisitio";
+$database= "bdtienda";
 $userbd= "root";
 $pass= ""; 
 

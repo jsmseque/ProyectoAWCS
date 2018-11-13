@@ -64,7 +64,7 @@ class ClaseUsuario {
         $resultado = $mysqli->query($query);
         
         if ($resultado->num_rows > 0) {
-            session_start();
+            session_start();//inicia session 
             $usuario = $resultado->fetch_assoc();
             $_SESSION["datos-usuario"] = array(
                 "Cedula" => $usuario["Cedula"],

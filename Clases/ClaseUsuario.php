@@ -2,28 +2,29 @@
 
 class ClaseUsuario {
     /* ATRIBUTOS */
-
-    private $Id;
     private $Cedula;
     private $Nombre;
     private $Apellidos;
+    private $Telefono;
     private $Email;
+    private $NombreUsuario;
     private $Contrasenia;
     private $Rol;
 
     /* CONSTRUCTOR */
 
     function ClaseUsuario() {
-        $this->Id = "";
         $this->Cedula = "";
         $this->Nombre = "";
         $this->Apellidos = "";
+        $this->Telefono = "";
         $this->Email = "";
+        $this->NombreUsuario = "";
         $this->Contrasenia = "";
         $this->Rol = "";
     }
 
-    /* METODOS DE LA CLASE */
+        /* METODOS DE LA CLASE */
 
     function getId() {
         return $this->Id;
@@ -61,19 +62,20 @@ class ClaseUsuario {
         $retorno = array();
         $query = "SELECT * FROM tbusuario WHERE Cedula='" . $datos["cedula"] . "' AND Contrasenia='" . md5($datos["password"]) . "'";
         $resultado = $mysqli->query($query);
-
+        
         if ($resultado->num_rows > 0) {
             session_start();
             $usuario = $resultado->fetch_assoc();
             $_SESSION["datos-usuario"] = array(
-                "Id" => $usuario["Id"],
                 "Cedula" => $usuario["Cedula"],
                 "Nombre" => $usuario["Nombre"],
                 "Apellidos" => $usuario["Apellidos"],
+                "Telefono"=> $usuario["Telefono"],
                 "Email" => $usuario["Email"],
+                "NombreUsuario" => $usuario["NombreUsuario"],
                 "Rol" => $usuario["Rol"]
-            );
-
+            );   
+            
             $retorno["valido"] = true;
         } else {
             $retorno["valido"] = false;
@@ -85,14 +87,14 @@ class ClaseUsuario {
     function CreaUsuario($datos) {
         require './BD/conexionBD.php';
         $retorno = array();
-        $query = "INSERT INTO tbusuario (Cedula,Nombre,Apellidos,Email,Contrasenia,Rol) VALUES ('";
-        $query .= $datos["cedula"] . "','" . $datos["nombre"] . "','" . $datos["apellidos"] . "','";
-        $query .= $datos["email"] . "','" . md5($datos["contrasenia"]) . "','" . $datos["rol"] . "')";
+        $query = "INSERT INTO usuarios (Cedula,Nombre,Apellidos,Telefono,Email,NombreUsuario,Contrasenia,Rol) VALUES ('";
+        $query .= $datos["cedula"] . "','" . $datos["nombre"] . "','" . $datos["apellidos"] . "','". $datos["Telefono"] . "','";
+        $query .= $datos["email"] . "','" .($datos["NombreUsuario"]). "','" . md5($datos["contrasenia"]) . "','" . $datos["rol"] . "')";
 
         $resultado = $mysqli->query($query);
-        $id = $mysqli->insert_id;
+        $error = $mysqli->error;//retorna el error o unca cadena vacía si no ocurrio errores
 
-        if ($id > 0) {
+        if ($error != "") {
             $retorno["valido"] = true;
         } else {
             $retorno["valido"] = false;
@@ -104,7 +106,7 @@ class ClaseUsuario {
     function EliminaUsuario($datos) {
         require './BD/conexionBD.php';
         $retorno = array();
-        $query = "DELETE FROM tbusuario WHERE cedula='" . $datos["cedula"] . "'";
+        $query = "DELETE FROM usuarios WHERE cedula='" . $datos["cedula"] . "'";
         $mysqli->query($query);
 
         if ($mysqli->affected_rows > 0) {
@@ -116,13 +118,15 @@ class ClaseUsuario {
         return $retorno;
     }
 
-//Funcion actualizazr
+//Funcion actualizar
+ // podria actualizar con el nombre de usuario, aun por definir*****, de momento funciona con la cedula
     function ActualizarUsuario($datos) {
         require './BD/conexionBD.php';
         $retorno = array();
-        $query = "UPDATE tbusuario SET ";
+        $query = "UPDATE usuarios SET ";
         $query .= "Nombre='" . $datos["nombre"] . "', Apellidos='" . $datos["apellidos"] . "',";
-        $query .= "Email='" . $datos["email"] . "', Contrasenia='" . $datos["contrasenia"] . "',";
+        $query .= "Telefono='" . $datos["telefono"] . "', NombreUsuario='" . $datos["nombreUsuario"] . "',";
+        $query .= "Email='" . $datos["email"] . "', Contrasenia='" . md5($datos["contrasenia"]) . "',";
         $query .= "Rol='" . $datos["rol"] . "' WHERE Cedula='" . $datos["cedula_buscar"] . "'";
         echo $query;
 
@@ -140,7 +144,7 @@ class ClaseUsuario {
     function ListarUsuarios() {
         require './BD/conexionBD.php';
         $retorno = array();
-        $query = "SELECT * FROM tbusuario";
+        $query = "SELECT * FROM usuarios";
 
         $resultado = $mysqli->query($query);
 

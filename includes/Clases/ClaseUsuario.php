@@ -58,12 +58,12 @@ class ClaseUsuario {
 
 //Funcion Login
     function Login($datos) {
-        require './BD/conexionBD.php';
+        require '../BD/conexionBD.php';
         $retorno = array();
         $query = "SELECT * FROM tbusuario WHERE Cedula='" . $datos["cedula"] . "' AND Contrasenia='" . md5($datos["password"]) . "'";
         $resultado = $mysqli->query($query);
         
-        if ($resultado->num_rows > 0) {
+        if ( $resultado && $resultado->num_rows > 0) {
             session_start();//inicia session 
             $usuario = $resultado->fetch_assoc();
             $_SESSION["datos-usuario"] = array(

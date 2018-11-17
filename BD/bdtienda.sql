@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-11-2018 a las 02:04:05
+-- Tiempo de generación: 17-11-2018 a las 04:42:35
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS `articulos`;
 CREATE TABLE IF NOT EXISTS `articulos` (
   `Codigo` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `Marca` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `Modelo` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `Detalle` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `Precio` float NOT NULL,
   `Cantidad` int(11) NOT NULL,

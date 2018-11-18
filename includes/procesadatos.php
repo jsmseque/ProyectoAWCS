@@ -6,12 +6,7 @@ $accion = $_POST["accion"];
 
 switch ($accion) {
     case 'login':
-    $retorno =$Usuario->login($_POST);
-        if ($retorno["valido"]) {
-            header("Location:index.php");
-        }else{
-            echo "Cedula o password incorrecta";
-        }
+        $retorno = $Usuario->Login($_POST);      
         break;
     case "crea-usuario":
         $retorno = $Usuario->CreaUsuario($_POST);
@@ -48,3 +43,5 @@ switch ($accion) {
     default:
         break;
 }
+
+echo json_encode($retorno); //para retornar un json

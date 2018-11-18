@@ -57,11 +57,13 @@ class ClaseUsuario {
     /* METODOS ESPECIFICOS */
 
 //Funcion Login
+// podria actualizar con el nombre de usuario, aun por definir*****, de momento funciona con la cedula
     function Login($datos) {
         require '../BD/conexionBD.php';
         $retorno = array();
-        $query = "SELECT * FROM tbusuario WHERE Cedula='" . $datos["cedula"] . "' AND Contrasenia='" . md5($datos["password"]) . "'";
+        $query = "SELECT * FROM usuarios WHERE Cedula='" . $datos["cedula"] . "' AND Contrasenia='" . md5($datos["password"]) . "'";
         $resultado = $mysqli->query($query);
+
         
         if ( $resultado && $resultado->num_rows > 0) {
             session_start();//inicia session 

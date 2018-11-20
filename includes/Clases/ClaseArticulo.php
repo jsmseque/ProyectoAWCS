@@ -53,25 +53,46 @@ class ClaseArticulo {
 
 /* METODOS ESPECIFICOS */
     //Funcion ingresar articulo
-     function ingresarArticulo($datos){
-       require './BD/conexionBD.php';
+    function ingresarArticulo($file, $datos) {
         $retorno = array();
+        
+        if(!$this->guardaImagen($file)){
+           $retorno["valido"] = false; 
+        } else {
+        require '../BD/conexionBD.php';
         $query = "INSERT INTO articulos (Codigo,Marca,Modelo,Detalle,Precio,Cantidad,Imagen) VALUES ('";
-        $query .= $datos["codigo"] . "','" . $datos["marca"] . "','" . $datos["modelo"] . "','". $datos["detalle"] . "','";
-        $query .= $datos["precio"] . "','" .($datos["cantidad"]). "','" .$datos["imagen"]. "')";
+        $query .= $datos["codigo"] . "','" . $datos["marca"] . "','" . $datos["modelo"] . "','" . $datos["detalle"] . "','";
+        $query .= $datos["precio"] . "','" . ($datos["cantidad"]) . "','" . basename($file['imagen']['name']) . "')";
 
         $resultado = $mysqli->query($query);
-        $error = $mysqli->error;//retorna el error o una cadena vacía si no ocurrio errores
+        $error = $mysqli->error; //retorna el error o una cadena vacía si no ocurrio errores
 
         if ($error != "") {
-            $retorno["valido"] = true;
-        } else {
             $retorno["valido"] = false;
+        } else {
+            $retorno["valido"] = true;
+        }
         }
         return $retorno;
-    }  
+    }
 
-    
+    //funcion para validad imagen
+     private function guardaImagen($file){
+        
+        $retorno = false;
+        $ruta_imagen = "../imagenes/articulos/";
+        $nombreImagen = basename($file['imagen']['name']);
+        $ruta_imagen = $ruta_imagen . $nombreImagen;
+
+        //se asegura que sea una imagen menor a 500KB jpg o png
+        if ($_FILES['imagen']['size'] < 500000 AND $_FILES['imagen']['type'] == "image/jpeg"
+                OR $_FILES['imagen']['type'] == "image/png") {
+            if (move_uploaded_file($file['imagen']['tmp_name'], $ruta_imagen)) {
+                $retorno = true;
+            } 
+        }
+         return $retorno;
+    }//fin de funcion guardaImagen()
 
 }//fin de la claseArticulo
 

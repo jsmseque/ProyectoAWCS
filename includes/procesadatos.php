@@ -1,8 +1,11 @@
 <?php
- include './Clases/ClaseUsuario.php';   
- $Usuario=new ClaseUsuario();  
+ include './Clases/ClaseUsuario.php';
+ include './Clases/ClaseArticulo.php';
  
-$accion = $_POST["accion"];
+ $Usuario=new ClaseUsuario();  
+ $Articulo=new ClaseArticulo();
+     $accion = $_POST["accion"];
+
 
 switch ($accion) {
     case 'login':
@@ -39,7 +42,15 @@ switch ($accion) {
       header("Location: index.php");
     break;
     
-
+    case "ingresa-articulo":
+        $retorno=$Articulo->ingresarArticulo($_FILES,$_POST);        
+       if ($retorno["valido"]) {
+          header("Location:/ProyectoAWCS/ingresar-articulo.php");
+        } else {
+            echo "Problemas al ingresar nuevo articulo.";
+        }
+        break;
+    
     default:
         break;
 }

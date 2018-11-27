@@ -66,7 +66,7 @@ class ClaseArticulo {
 
         $resultado = $mysqli->query($query);
         $error = $mysqli->error; //retorna el error o una cadena vacía si no ocurrio errores
-
+        
         if ($error != "") {
             $retorno["valido"] = false;
         } else {
@@ -93,6 +93,33 @@ class ClaseArticulo {
         }
          return $retorno;
     }//fin de funcion guardaImagen()
+    
+    //funcion listar productos
+    function ListarProductos() {
+        require '../BD/conexionBD.php';
+        
+        $retorno = array();
+        $query = "SELECT * FROM articulos";
+
+        $resultado = $mysqli->query($query);
+
+        if ($resultado->num_rows > 0) {
+            $productos= array();
+            while ($producto = $resultado->fetch_assoc()) {
+                array_push($productos, $producto);
+            }
+
+            $retorno["valido"] = true;
+            $retorno["datos"] = $productos;
+        } else {
+            $retorno["valido"] = false;
+        }
+
+        Return $retorno;
+    }//fin listar productos
+    
+    
+    
 
 }//fin de la claseArticulo
 

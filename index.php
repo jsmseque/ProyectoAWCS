@@ -18,5 +18,12 @@ and open the template in the editor.
         <a href="login.php">Login</a>      
         <div id="divArticulos" class="container-fluid">     
         </div>
+        
+        <div id="divCarrito" class="container-fluid">
+            <div><input type="button" id="btnMostrarCarrito" class="btn btn-success" value="Mostrar carrito" onclick="verCarrito"></div>
+            <h3>Carrito</h3>
+            
+        </div>
+        
     </body>
 </html>

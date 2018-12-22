@@ -29,6 +29,7 @@ $(function () {
 
     });
 
+//evento , click btnMostrarCarrito
 $("#btnMostrarCarrito").click(function (){
     $.ajax({  
             dataType: 'json',
@@ -45,7 +46,7 @@ $("#btnMostrarCarrito").click(function (){
                    $catalogo += "<div><b>Modelo:</b>" + _data[articulo].Modelo + "</div>";
                    $catalogo += "<div><b>Detalle:</b>" + _data[articulo].Detalle + "</div>";
                    $catalogo += "<div><b>Precio: ¢</b>" + _data[articulo].Precio + "</div>";                   
-                   $catalogo += '<div><input type="button" id="btnComprar" class="btn btn-success" value="Comprar"></div>';
+                   $catalogo += '<div><input type="button" id="btnComprar" class="btn btn-success" value="Comprar"onclick="agregaCarrito( '+"'"+ _data[articulo].Codigo.toString() +"'"+  ')"></div>';
                    $catalogo += '</div>';
                    $("#divCarrito").append($catalogo);   
                 } }}
@@ -53,6 +54,9 @@ $("#btnMostrarCarrito").click(function (){
                  });  
     
 });
+
+//evento , click btnComprar
+
 
 
 
@@ -62,36 +66,18 @@ $("#btnMostrarCarrito").click(function (){
 
 //variable global arreglo para guardar carrito
 articulosCarrito=[];
+//variable global articulo para compra
+articuloCompra;
 
-function agregaCarrito(a) {
+function articuloCompra(a) {
     alert(a);
-  articulosCarrito.push(a)
+  artuculoCompra=a;
 }
 
-
-//function verCarrito(){
-//        $.ajax({  
-//            dataType: 'json',
-//            url: "includes/procesa-catalogo.php",
-//            method: "post",
-//            data: "&accion=cargar-articulos",
-//            success: function (_data) {
-//    for (var i in _data) {
-//        for (var articulo in articulosCarrito) {
-//
-//                   $catalogo='<div class="col-sm-4">';
-//                   $catalogo += '<img id="img-muestra" src="imagenes/articulos/' + _data[articulo].Imagen+ '" alt="Imagen del celular" class="img-rounded" >';
-//                   $catalogo += "<div><b>Marca:</b>" + _data[articulo].Marca + "</div>";
-//                   $catalogo += "<div><b>Modelo:</b>" + _data[articulo].Modelo + "</div>";
-//                   $catalogo += "<div><b>Detalle:</b>" + _data[articulo].Detalle + "</div>";
-//                   $catalogo += "<div><b>Precio: ¢</b>" + _data[articulo].Precio + "</div>";                   
-//                   $catalogo += '<div><input type="button" id="btnComprar" class="btn btn-success" value="Comprar"></div>';
-//                   $catalogo += '</div>';
-//                   $("#divCarrito").append($catalogo);   
-//                } }
-//            }
-//                 });  
-//}
+function agregaCarrito(a) {
+    //alert(a);
+  articulosCarrito.push(a)
+}
 
 
 

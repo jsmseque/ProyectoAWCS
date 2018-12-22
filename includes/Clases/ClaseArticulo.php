@@ -119,21 +119,13 @@ class ClaseArticulo {
     }//fin listar productos
     
      //funcion sacar producto
-    function SacarProducto($codigo) {
-        require '../BD/conexionBD.php';
-
-        $retorno = array();
-        $query = "UPDATE articulos SET Cantidad=Cantidad-1 WHERE Codigo="+$codigo+'"';
+    function SacarProducto($cod) {
+        require '../BD/conexionBD.php';     
+        
+        $query = "UPDATE articulos SET Cantidad=Cantidad-1 WHERE Codigo='".$cod."'";
         echo $query;
-        $resultado = $mysqli->query($query);
-        $error = $mysqli->error; //retorna el error o una cadena vacía si no ocurrio errores
-        if ($error != "") {
-            $retorno["valido"] = false;
-        } else {
-            $retorno["valido"] = true;
-        }
-
-        Return $retorno;
+        $mysqli->query($query);
+       
     }
 
 //fin sacar producto

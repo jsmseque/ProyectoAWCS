@@ -10,7 +10,7 @@ $("#btnLogin").click(function(){
        data: $_form.serialize() + "&accion=login",
        success: function (_data){
        if (_data.valido){
-           window.location.replace("index.php");
+           window.location.replace("menuPrincipal.php");
        }else{
   
          alert("Usario y/o contraseña incorrectos.");

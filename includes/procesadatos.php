@@ -38,8 +38,8 @@ switch ($accion) {
         break;
 
     case "logout":
-      $retorno=$Usuario->CerrarSession();
-      header("Location: index.php");
+      $retorno=$Usuario->CerrarSesion();
+      header("Location: ../index.php");
     break;
     
     case "ingresa-articulo":

@@ -18,10 +18,10 @@ switch ($accion) {
         $fecha=date("Y-m-d");
         $factura=mt_rand(1,9999);//numero de factura aleatorio
         $codigo=$_POST["idArticulo"];
-        $datos= ["idUsuario"=>$idUsuario,"codigo"=>$codigo,"factura"=>$factura,"fecha"=>$fecha];
-            $resultado = $Compra->nuevaCompra($datos);  
-            $resultado2= $Articulo->SacarProducto($codigo);
-                echo json_encode($resultado["valido"]);          
+        $datos= ["idUsuario"=>$idUsuario,"codigo"=>$codigo,"factura"=>$factura,"fecha"=>$fecha];      
+       $resultado = $Compra->nuevaCompra($datos);  
+       $Articulo->SacarProducto($_POST["idArticulo"]);      
+       echo json_encode($resultado["valido"]);          
         break;
 default:
         break;

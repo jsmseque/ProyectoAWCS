@@ -10,7 +10,7 @@ $(function () {
             data: "&accion=cargar-articulos",
             success: function (_data) {
             
-                
+               
                 for (var articulo in _data) {                     
                    $catalogo='<div class="col-sm-4">';
                    $catalogo += '<img id="img-muestra" src="imagenes/articulos/' + _data[articulo].Imagen+ '" alt="Imagen del celular" class="img-rounded" >';
@@ -37,10 +37,19 @@ $("#btnMostrarCarrito").click(function (){
             method: "post",
             data: "&accion=cargar-articulos",
             success: function (_data) {
+//                $("#divCarrito").removeChild(div);
+                
+                if (divCarrito.hasChildNodes())
+                {
+                    while (divCarrito.childNodes.length >= 1)
+                    {
+                        divCarrito.removeChild(divCarrito.firstChild);
+                    }
+                }
     for (var i in articulosCarrito) {     
         for (var articulo in _data) {
             if(_data[articulo].Codigo== articulosCarrito[i]){
-                   $catalogo='<div class="col-sm-8">';
+                   $catalogo='<div class="col-sm-2">';
                    $catalogo += '<img id="img-muestra" src="imagenes/articulos/' + _data[articulo].Imagen+ '" alt="Imagen del celular" class="img-rounded" >';
                    $catalogo += "<div><b>Marca:</b>" + _data[articulo].Marca + "</div>";
                    $catalogo += "<div><b>Modelo:</b>" + _data[articulo].Modelo + "</div>";
@@ -55,20 +64,20 @@ $("#btnMostrarCarrito").click(function (){
     
 });
 
-//evento , click btnComprar
-$("#btnComprar").click(function (){
-    alert("afeeeeeeeeeeeeeeeeee");
-    $.ajax({  
-            dataType: 'json',
-            url: "includes/procesa-catalogo.php",
-            method: "post",
-            data: "&accion=comprar-articulo"+"&idArticulo="+articuloCompra ,
-            success: function (_data) {
-             alert("articulo comprado"+_data);
-            }
-                 });  
-    
-});
+////evento , click btnComprar
+//$("#btnComprar").click(function (){
+//    alert("afeeeeeeeeeeeeeeeeee");
+//    $.ajax({  
+//            dataType: 'json',
+//            url: "includes/procesa-catalogo.php",
+//            method: "post",
+//            data: "&accion=comprar-articulo"+"&idArticulo="+articuloCompra ,
+//            success: function (_data) {
+//             alert("articulo comprado"+_data);
+//            }
+//                 });  
+//    
+//});
 
 
 
@@ -84,14 +93,22 @@ articuloComprado="";
 
 
 function agregaCarrito(a) {
-    alert(a);
+     if (divCarrito.hasChildNodes())
+                {
+                    while (divCarrito.childNodes.length >= 1)
+                    {
+                        divCarrito.removeChild(divCarrito.firstChild);
+                    }
+                }
+    alert("Articulo guardado");
   articulosCarrito.push(a)
+  
 }
 
 
-function comprar(){
-     alert("gfggg");
-     $(function () {
+function comprar(){   
+    alert("Gracias por su compra");
+     $(function () {        
     $.ajax({  
          
             dataType: 'json',
@@ -99,7 +116,7 @@ function comprar(){
             method: "post",
             data: "&accion=comprar-articulo"+"&idArticulo="+articuloComprado ,
             success: function (_data) {
-             $.window.alert("articulo comprado"+_data);
+             alert("articulo comprado!"+_data);
             }
            
                  });  

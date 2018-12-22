@@ -49,7 +49,7 @@ $("#btnMostrarCarrito").click(function (){
     for (var i in articulosCarrito) {     
         for (var articulo in _data) {
             if(_data[articulo].Codigo== articulosCarrito[i]){
-                   $catalogo='<div class="col-sm-2">';
+                   $catalogo='<div class="col-sm-4">';
                    $catalogo += '<img id="img-muestra" src="imagenes/articulos/' + _data[articulo].Imagen+ '" alt="Imagen del celular" class="img-rounded" >';
                    $catalogo += "<div><b>Marca:</b>" + _data[articulo].Marca + "</div>";
                    $catalogo += "<div><b>Modelo:</b>" + _data[articulo].Modelo + "</div>";

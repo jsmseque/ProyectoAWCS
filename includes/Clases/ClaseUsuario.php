@@ -87,7 +87,7 @@ class ClaseUsuario {
 
 //Funcion crea nuevo usuario
     function CreaUsuario($datos) {
-        require './BD/conexionBD.php';
+        require '../../BD/conexionBD.php';
         $retorno = array();
         $query = "INSERT INTO usuarios (Cedula,Nombre,Apellidos,Telefono,Email,NombreUsuario,Contrasenia,Rol) VALUES ('";
         $query .= $datos["cedula"] . "','" . $datos["nombre"] . "','" . $datos["apellidos"] . "','". $datos["Telefono"] . "','";

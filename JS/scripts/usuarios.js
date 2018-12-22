@@ -6,7 +6,7 @@ $(function () {
         $.ajax({
             type: 'post',
             dataType: 'json',
-            url: 'procesadatos.php',
+            url: "includes/procesadatos.php",
             data: $_form.serialize() + "&accion=crea-usuario",
             success: function (_data) {
                 if (_data.valido) {
@@ -26,7 +26,7 @@ $(function () {
         $.ajax({
             type: 'post',
             dataType: 'json',
-            url: 'procesadatos.php',
+            url:  "includes/procesadatos.php",
             data: $_form.serialize() + "&accion=busca-usuario",
             success: function (_data) {
                 if (_data.valido) {

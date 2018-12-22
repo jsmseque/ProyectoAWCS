@@ -95,7 +95,7 @@ class ClaseArticulo {
     }//fin de funcion guardaImagen()
     
     //funcion listar productos
-    function ListarProductos() {
+     function ListarProductos() {
         require '../BD/conexionBD.php';
         
         $retorno = array();
@@ -123,8 +123,8 @@ class ClaseArticulo {
         require '../BD/conexionBD.php';
 
         $retorno = array();
-        $query = "UPDATE articulos SET Cantidad=Cantidad-1 WHERE Codigo=" + "'" + $codigo + "'";
-
+        $query = "UPDATE articulos SET Cantidad=Cantidad-1 WHERE Codigo="+$codigo+'"';
+        echo $query;
         $resultado = $mysqli->query($query);
         $error = $mysqli->error; //retorna el error o una cadena vacía si no ocurrio errores
         if ($error != "") {

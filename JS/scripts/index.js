@@ -46,7 +46,7 @@ $("#btnMostrarCarrito").click(function (){
                    $catalogo += "<div><b>Modelo:</b>" + _data[articulo].Modelo + "</div>";
                    $catalogo += "<div><b>Detalle:</b>" + _data[articulo].Detalle + "</div>";
                    $catalogo += "<div><b>Precio: ¢</b>" + _data[articulo].Precio + "</div>";                   
-                   $catalogo += '<div><input type="button" id="btnComprar" class="btn btn-success" value="Comprar"onclick="agregaCarrito( '+"'"+ _data[articulo].Codigo.toString() +"'"+  ')"></div>';
+                   $catalogo += '<div><input type="button" id="btnComprar" class="btn btn-success" value="Comprar" onclick="articuloCompra( '+"'"+ _data[articulo].Codigo.toString() +"'"+')"></div>';
                    $catalogo += '</div>';
                    $("#divCarrito").append($catalogo);   
                 } }}
@@ -56,7 +56,19 @@ $("#btnMostrarCarrito").click(function (){
 });
 
 //evento , click btnComprar
-
+$("#btnComprar").click(function (){
+    alert("afeeeeeeeeeeeeeeeeee");
+    $.ajax({  
+            dataType: 'json',
+            url: "includes/procesa-catalogo.php",
+            method: "post",
+            data: "&accion=comprar-articulo"+"&idArticulo="+articuloCompra ,
+            success: function (_data) {
+             alert("articulo comprado"+_data);
+            }
+                 });  
+    
+});
 
 
 
@@ -67,18 +79,36 @@ $("#btnMostrarCarrito").click(function (){
 //variable global arreglo para guardar carrito
 articulosCarrito=[];
 //variable global articulo para compra
-articuloCompra;
+articuloComprado="";
 
-function articuloCompra(a) {
-    alert(a);
-  artuculoCompra=a;
-}
+
 
 function agregaCarrito(a) {
-    //alert(a);
+    alert(a);
   articulosCarrito.push(a)
 }
 
 
+function comprar(){
+     alert("gfggg");
+     $(function () {
+    $.ajax({  
+         
+            dataType: 'json',
+            url: "includes/procesa-catalogo.php",
+            method: "post",
+            data: "&accion=comprar-articulo"+"&idArticulo="+articuloComprado ,
+            success: function (_data) {
+             $.window.alert("articulo comprado"+_data);
+            }
+           
+                 });  
+    });//fin de script
+}
+
+function articuloCompra(a) {
+ articuloComprado=a;
+ comprar();
+}
 
 
